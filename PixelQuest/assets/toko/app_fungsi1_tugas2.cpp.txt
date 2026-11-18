@@ -1,0 +1,53 @@
+#include<iostream>
+
+using namespace std;
+
+void input_data(int& a, int& b){
+	int sisi;
+	
+	system("cls");
+	cout<<"Masukkan nilai panjang persegipanjang = ";cin>>a;
+	cout<<"Masukkan nilai lebar persegipanjang = ";cin>>b;
+}
+
+void hitung_luaspersegi(int& a,int& b){
+		
+	system("cls");
+	cout<<"Luas persegipanjang dengan panjang "<<a<<" dan lebar "
+	    <<b<<" adalah "<<a*b<<endl;
+	system("pause");
+}
+
+void hitung_keliling(int& a, int& b){
+		
+	system("cls");
+	cout<<"Keliling persegipanjang dengan panjang "<<a<<" dan lebar "
+	    <<b<<" adalah "<<2*(a+b)<<endl;
+	system("pause");
+}
+
+main(void){
+	int menu, panjang, lebar;
+	
+	do{
+		system("cls");
+		cout<<"=========================="<<endl;
+		cout<<"       Pilihan Menu       "<<endl;
+		cout<<"--------------------------"<<endl;
+		cout<<"  1. Input Data Persegi   "<<endl;
+		cout<<"  2. Hitung Keliling      "<<endl;
+		cout<<"  3. Hitung Luas          "<<endl;
+		cout<<"  4. Keluar Sistem        "<<endl;
+		cout<<"=========================="<<endl;
+		cout<<" Masukkan pilihan menu = ";cin>>menu;
+		
+		switch(menu){
+			case 1 : input_data(panjang,lebar);break;
+			case 2 : hitung_keliling(panjang,lebar);break;
+			case 3 : hitung_luaspersegi(panjang,lebar);break;
+			case 4 : exit(0);
+		}
+	}while((menu!=1)||(menu!=2)||(menu!=3));
+	
+	return 0;
+}

@@ -1,0 +1,1591 @@
+
+/* =========================================
+   PIXEL QUEST — LOBBY
+   Satu layout terpadu, tanpa override ganda
+   ========================================= */
+
+:root {
+  --cream: #f4e6c5;
+  --paper: #fff2d5;
+  --wood: #6b432b;
+  --wood-dark: #38251b;
+  --wood-light: #b77a49;
+  --text: #35251c;
+  --active: #e5b77d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  background-color: #f3dfba;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Background berdasarkan jam lokal perangkat */
+body.bg-siang {
+  background-image: url("../assets/background kota.jpg");
+}
+
+body.bg-sore {
+  background-image: url("../assets/background kota sore.jpg");
+}
+
+body.bg-malam {
+  background-image: url("../assets/background kota malam.jpg");
+}
+
+/* Kerangka utama */
+.lobby {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  margin: 0;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  grid-template-rows: 68px minmax(0, 1fr);
+  grid-template-areas:
+    "status status"
+    "dashboard navigation";
+  gap: 12px 20px;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* HUD atas */
+.status-bar {
+    grid-area: status;
+    width: 95%;
+    min-width: 0;
+    min-height: 60px;
+    padding: 2px 16px;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns:
+        36px
+        minmax(200px, 280px)
+        minmax(120px, 170px)
+        minmax(0, 1fr)
+        36px;
+
+    align-items: center;
+    gap: 10px;
+
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+
+    transform: translateY(-10px);
+}
+
+.welcome-text {
+  display: none;
+}
+
+
+/* BURGER MENU */
+.top-menu-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+
+  background-image: url("../assets/brger.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  border: 0;
+  box-shadow: none;
+  font-size: 0;
+}
+
+
+
+.level-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(27px, -3px);
+  color: #fff0c4;
+  font-size: 15px;
+  font-weight: 900;
+  text-shadow: 2px 2px #59351f;
+}
+.exp-track {
+    position: relative;
+    width: 65%;
+    height: 25px;
+    min-width: 0;
+    margin: 0 auto;
+    overflow: hidden;
+
+    background: #453b30;
+    border: 2px solid #514c3e;
+    border-radius: 4px;
+}
+.exp-track {
+    transform: translate(-16px, -2px);
+}
+
+.exp-fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: #e6b94c;
+  border-radius: 4px;
+
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width;
+}
+
+.exp-text {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  text-shadow: 1px 1px #382313;
+  pointer-events: none;
+}
+
+/* COINS */
+.coin-display {
+  width: 100%;
+  min-width: 0;
+  height: 86px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 10px 0 70px;
+
+  color: #fff0c4;
+  font-size: 22px;
+  font-weight: 900;
+  white-space: nowrap;
+  transform: translate(-310px, 1px);
+  background-image: url("../assets/iconloby-Photoroom (4).png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60% 60%;
+
+  border: 0;
+  box-shadow: none;
+}
+
+#coins {
+  color: #fff0c4;
+  font-size: 1em;
+  font-weight: 900;
+  transform: translate(-15px);
+}
+
+/* AUDIO */
+.sound-icon {
+    justify-self: end;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    background-image: url("../assets/sound-on.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  
+
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* KONDISI OFF */
+.sound-icon.is-off {
+    background-image: url("../assets/sound-off.png");
+}
+
+/* EFEK HOVER */
+.sound-icon:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2) drop-shadow(0 0 5px #ffe08a);
+}
+
+/* EFEK KLIK */
+.sound-icon:active {
+    transform: scale(0.9);
+}
+
+/* ANIMASI PERGANTIAN IKON */
+.sound-icon.sound-animate {
+    animation: soundToggle 0.25s ease;
+}
+
+@keyframes soundToggle {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    60% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.status-icon {
+  font-size: 20px;
+}
+
+/* Dashboard utama */
+.dashboard-layout {
+  grid-area: dashboard;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "board room"
+    "board quest";
+  align-items: stretch;
+  gap: 12px 20px;
+  background: transparent;
+}
+
+/* PENGATURAN MUDAH DAILY BOARD */
+.daily-board {
+    /* Ukuran papan */
+    --board-width: 100%;
+    --board-height: 180px;
+
+    /* Posisi papan */
+    --board-x: 130px;  /* kanan (+) | kiri (-) */
+    --board-y: 30px;   /* bawah (+) | atas (-) */
+
+    /* Ukuran teks */
+    --title-size: 17px;
+    --subtitle-size: 11px;
+    --content-size: 11px;
+
+    /* Posisi teks */
+    --text-x: 20px;     /* kanan (+) | kiri (-) */
+    --text-y: 0px;     /* bawah (+) | atas (-) */
+
+    grid-area: board;
+    align-self: end;
+    width: var(--board-width);
+    min-height: var(--board-height);
+    margin: 0 0 40px;
+    padding: 25px 18px;
+    box-sizing: border-box;
+
+    color: var(--wood-dark);
+    text-align: left;
+    transform: translate(var(--board-x), var(--board-y));
+
+    background: url("../assets/iconloby-Photoroom.png") center / 100% 100% no-repeat;
+    border: 0;
+    box-shadow: none;
+}
+
+/*daily board*/
+
+/* PENGATURAN POSISI TEKS */
+.daily-board {
+    --title-x: 40px;   /* Judul ke kiri */
+    --title-y: 0px;   /* Judul ke bawah */
+
+    --subtitle-x: 30px;  /* Deskripsi ke kanan */
+    --subtitle-y: 0px;  /* Deskripsi ke bawah */
+
+    --content-x: 25px;   /* Isi ke kanan */
+    --content-y: 0px;    /* Isi ke bawah */
+}
+
+/* JUDUL */
+.daily-board h2 {
+    margin: 0 0 8px;
+    font-size: var(--title-size);
+    font-weight: 900;
+    color: #fff0c4;
+    text-shadow: 1px 1px 2px #3b2418;
+    transform: translate(var(--title-x), var(--title-y));
+}
+
+/* DESKRIPSI */
+.daily-board p {
+    margin: 5px 0 12px;
+    font-size: var(--subtitle-size);
+    font-weight: 700;
+    color: #fff4d6;
+    text-shadow: 1px 1px 2px #3b2418;
+    transform: translate(var(--subtitle-x), var(--subtitle-y));
+}
+
+/* ISI PAPAN */
+.daily-board-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    margin: 10px 0;
+    font-size: var(--content-size);
+    font-weight: 700;
+    color: #fff4d6;
+    text-shadow: 1px 1px 2px #3b2418;
+    transform: translate(var(--content-x), var(--content-y));
+}
+
+/* TEKS PERTAMA */
+.daily-board-content span:first-child {
+    font-size: calc(var(--content-size) + 1px);
+    font-weight: 900;
+    color: #ffe29a;
+}
+
+/* TEKS KEDUA */
+.daily-board-content span:last-child {
+    font-size: var(--content-size);
+    font-weight: 600;
+}
+/* Kamar */
+.room-column {
+  grid-area: room;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.room-frame {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  cursor: default;
+}
+
+.room-canvas {
+    position: relative;
+    width: min(100%, 620px);
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transform: none !important;
+}
+
+.room-art {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    max-width: none;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    transform: translate(15px,-30px);
+}
+
+.furniture-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.furniture-item {
+  position: absolute;
+  width: 12%;
+  height: auto;
+  cursor: default;
+  pointer-events: auto;
+  user-select: none;
+  image-rendering: pixelated;
+  -webkit-user-drag: none;
+}
+
+.furniture-emoji {
+  width: 8%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  font-size: clamp(24px, 4vw, 48px);
+  line-height: 1;
+}
+
+/* Upgrade kamar */
+
+.upgrade-info {
+    flex: 1;
+    min-width: 0;
+    width: 400px;
+    max-width: 100%;
+    height: 90px;
+    box-sizing: border-box;
+    padding: 15px 12px;
+
+    background-color: transparent;
+    background-image: url("../assets/menuupgrade.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    box-shadow: none;
+
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+
+    /* Pengaturan posisi */
+    --upgrade-x: -26px;
+    --upgrade-y: -85px;
+
+    transform: translate(var(--upgrade-x), var(--upgrade-y));
+
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.upgrade-icon {
+  font-size: 34px;
+}
+
+.upgrade-info {
+    flex: 1;
+    min-width: 0;
+    width: 400px;
+    max-width: 100%;
+    height: 90px;
+    box-sizing: border-box;
+    padding: 15px 12px;
+
+    background-image: url("../assets/menuupgrade.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: translate(-26px,-85px);
+
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+.upgrade-info {
+    background-color: transparent;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+}
+
+/* EFEK HOVER */
+.upgrade-info:hover {
+    transform: translate(var(--upgrade-x), var(--upgrade-y)) scale(1.05);
+    filter: brightness(1.15) drop-shadow(0 0 6px #ffe08a);
+}
+
+/* EFEK SAAT DITEKAN */
+.upgrade-info:active {
+    transform: translate(var(--upgrade-x), var(--upgrade-y)) scale(0.95);
+    filter: brightness(0.9);
+}
+
+/* FOKUS KEYBOARD */
+.upgrade-info:focus-visible {
+    outline: 2px solid #ffe08a;
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+.upgrade-info strong {
+  font-size: 14px;
+}
+
+.upgrade-progress {
+    position: relative;
+    top: -5px;
+    width: 50%;
+    height: 25px;
+    min-width: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #453b30;
+    border: 2px solid #514c3e;
+    border-radius: 4px;
+    transform: translate(30px, 5px);
+}
+
+.upgrade-progress span {
+    display: block;
+    width: 50%;
+    height: 100%;
+    background: rgb(233, 208, 140);
+    border-radius: inherit;
+
+    transition: width 0.8s ease-in-out;
+}
+.upgrade-info .upgrade-progress-label {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0 4px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #38251b;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.upgrade-info small {
+    display: block;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    margin: 0;
+    padding: 0;
+    padding-left: 50px;
+}
+
+/* Sidebar quest */
+.dashboard-sidebar {
+  display: contents;
+}
+
+.dashboard-sidebar[hidden] {
+  display: none !important;
+}
+
+.mini-quest {
+  grid-area: quest;
+  justify-self: end;
+  align-self: end;
+  width: min(100%, 540px);
+  min-width: 0;
+  min-height: 120px;
+  min-width: 0;
+  min-height: 110px;
+  padding: 18px 22px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px 10px;
+
+  color: var(--text);
+
+  background-image: url("../assets/icon quest aktif.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  border: 0;
+  box-shadow: none;
+}
+
+.mini-quest-info {
+  min-width: 0;
+  transform: translate(55px,10px);
+}
+
+.mini-quest-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--wood-light);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+ 
+}
+
+.mini-quest-info h2,
+#mini-quest-name {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+
+}
+
+.mini-quest-info p,
+#mini-quest-status {
+  margin: 4px 0 0;
+  color: var(--text);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.mini-quest-timer {
+    /* Warna teks */
+    color: #0c95da;
+
+    /* Ukuran dan variasi tulisan */
+    font-size: 17px;
+    font-weight: 900;
+    font-family: "Courier New", monospace;
+    font-style: normal;
+
+    /* Posisi atas-bawah */
+    position: relative;
+    top: 3px;
+
+    /* Posisi kiri-kanan */
+    left: 2px;
+
+    /* Tampilan timer */
+    font-variant-numeric: tabular-nums;
+    padding: 6px;
+    background: transparent;
+    border: none;
+    white-space: nowrap;
+}
+
+.mini-quest-link {
+  grid-column: 1 / -1;
+  justify-self: end;
+  padding-top: 5px;
+  color: var(--wood);
+  font-size: 10px;
+  font-weight: 900;
+  text-decoration: none;
+  transform: translate(-10px,-6px);
+}
+
+.mini-quest-link:hover {
+  color: var(--wood-light);
+  text-decoration: underline;
+}
+
+/* Navigasi kanan */
+.navigation {
+  grid-area: navigation;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transform: translate(0px,-30px);
+}
+
+/* =====================================
+   NAVIGATION RIBBON — 3 STATES
+   ===================================== */
+
+/* Kondisi normal */
+.nav-button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    width: 280px;
+    height: 75px;
+    transform: translateX(-30px) scale(1.0);
+}
+
+.nav-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background-image: url("../assets/tombol-Photoroom.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 85% 85%;
+
+  pointer-events: none;
+}
+
+/* Kondisi hover */
+.nav-button:hover::before {
+  background-image: url("../assets/tombol-Photoroom (2).png");
+}
+
+/* Kondisi saat ditekan */
+.nav-button:active::before {
+  background-image: url("../assets/tombol-Photoroom (3).png");
+}
+
+/* Ikon dan teks selalu terlihat di atas pita */
+.nav-icon {
+  position: relative;
+  z-index: 1;
+
+}
+
+/* Hindari background tambahan dari tombol */
+.nav-button:hover,
+.nav-button:active,
+.nav-button.active {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+
+/* Ikon dan tulisan tetap berada di atas pita */
+
+
+/* =====================================
+   HOVER, ACTIVE & CLICK STATE
+===================================== */
+
+/* Kondisi normal */
+.nav-button {
+    transform: translateX(-30px) scale(1);
+    transition: transform 0.15s ease;
+}
+
+/* Saat mouse diarahkan */
+.nav-button:hover {
+    transform: translateX(-33px) scale(1.02);
+}
+
+/* Saat ditekan */
+.nav-button:active {
+    transform: translateX(-31px) scale(0.98);
+}
+
+/* Menu yang sedang aktif */
+.nav-button.active {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transform: translateX(-30px) scale(1);
+}
+
+/* Pastikan background pita tetap terlihat */
+.nav-button:hover,
+.nav-button:active,
+.nav-button.active {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+.nav-icon {
+  flex-shrink: 0;
+  width: 42px;
+  font-size: 32px;
+  line-height: 1;
+  text-align: center;
+}
+
+.nav-label {
+    text-align: left;
+    overflow-wrap: anywhere;
+    padding-left: 30px;
+    padding-bottom: 0;
+    position: relative;
+    top: -27px;
+}
+
+
+.nav-button:focus-visible,
+.mini-quest-link:focus-visible {
+  outline: 2px dashed var(--wood-dark);
+  outline-offset: 3px;
+}
+
+/* Tata kamar tidak digunakan */
+.decorate-room-btn {
+  display: none !important;
+}
+
+/* Tablet dan layar lebih kecil */
+@media (max-width: 1023px) {
+  .lobby {
+    height: auto;
+    min-height: 100vh;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: visible;
+  }
+
+  .status-bar {
+    min-height: 56px;
+    padding: 4px 8px;
+    grid-template-columns: 40px auto minmax(0, 1fr) 40px;
+    gap: 8px;
+  }
+
+  .dashboard-layout {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .room-column {
+    min-height: 340px;
+  }
+
+  .room-frame {
+    min-height: 280px;
+  }
+
+  .room-art {
+    width: min(100%, 700px);
+    max-height: 48vh;
+  }
+
+  .room-upgrade {
+    width: min(420px, 95%);
+  }
+
+  .daily-board {
+    order: 2;
+    margin: 0;
+  }
+
+  .dashboard-sidebar {
+    display: block;
+    order: 3;
+  }
+
+  .mini-quest {
+    width: 100%;
+  }
+
+  .navigation {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .nav-button {
+    min-height: 62px;
+    padding: 6px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .nav-icon {
+    width: auto;
+    font-size: 25px;
+  }
+
+  .nav-label {
+    font-size: 9px;
+    text-align: center;
+  }
+}
+
+/* Ponsel */
+@media (max-width: 600px) {
+  .status-bar {
+    grid-template-columns: 36px auto 36px;
+    gap: 6px;
+  }
+
+  .player-level {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .top-menu-icon,
+  .sound-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 21px;
+  }
+
+  .coin-display {
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .room-column {
+    min-height: 260px;
+  }
+
+  .room-frame {
+    min-height: 220px;
+  }
+
+  .room-art {
+    max-height: 38vh;
+  }
+
+  .navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mini-quest {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+/* Papan Level dan EXP */
+.level-display {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  align-items: center;
+  transform: translate(80px, 1px);
+  width: 400px;
+  max-width: 100%;
+  height: 90px;
+  box-sizing: border-box;
+  padding: 9px 8px;
+
+  background-image: url("../assets/iconloby1-Photoroom.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70% 58%;
+
+  border: 0;
+  box-shadow: none;
+}
+
+/* Bagian EXP berwarna hijau */
+.exp-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #168b42,
+    #32d66b,
+    #75f59b
+  );
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width
+}
+
+.exp-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 28%;
+  background: #8FE266;
+}
+
+.exp-fill::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 24%;
+  background: #3A8523;
+}
+
+.exp-track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent calc(100% / 12 - 2px),
+    rgba(0, 0, 0, .3) calc(100% / 12 - 2px),
+    rgba(0, 0, 0, .3) calc(100% / 12)
+  );
+}
+
+/* Tulisan EXP berada di atas indikator */
+.exp-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #000000;
+  pointer-events: none;
+}
+
+.exp-pop {
+  position: absolute;
+  left: 70%;
+  bottom: 82%;
+  z-index: 5;
+
+  color: #F8C81C;
+  font-size: 22px;
+  font-weight: 900;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+
+  text-shadow:
+    2px 0 #4A2B14,
+    -2px 0 #4A2B14,
+    0 2px #4A2B14,
+    0 -2px #4A2B14;
+}
+
+.exp-pop.show {
+  animation: levelPop 1.2s steps(8, end) forwards;
+}
+
+@keyframes levelPop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  25%, 75% {
+    opacity: 1;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-22px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-fill {
+    transition: none;
+  }
+
+  .exp-pop.show {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1023px) {
+  .status-bar {
+    grid-template-columns:
+      40px
+      minmax(0, 1fr)
+      minmax(120px, 170px)
+      40px;
+
+    gap: 10px;
+    padding: 4px 10px;
+  }
+
+  .welcome-text {
+    display: none;
+  }
+
+  .top-menu-icon,
+  .sound-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .level-display {
+    height: 66px;
+  }
+
+  .coin-display {
+    height: 58px;
+    padding-left: 45px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .status-bar {
+    grid-template-columns:
+      32px
+      minmax(0, 1fr)
+      minmax(90px, 120px)
+      32px;
+
+    gap: 6px;
+    padding: 4px 6px;
+  }
+
+  .top-menu-icon,
+  .sound-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .level-display {
+    height: 54px;
+    grid-template-columns: 38% 62%;
+    padding: 5px 4px;
+  }
+
+  .level-number {
+    font-size: 14px;
+  }
+
+
+  .exp-text {
+    font-size: 9px;
+  }
+
+  .coin-display {
+    height: 48px;
+    padding: 0 4px 0 30px;
+    font-size: 14px;
+  }
+}
+
+/* Kondisi tombol ketika upgrade sudah maksimal */
+.upgrade-info:disabled {
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    opacity: 0.75;
+}
+
+/* =====================================
+   IKON NAVIGASI LOBBY
+===================================== */
+
+
+.nav-icon {
+    display: block;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    font-size: 0;
+    line-height: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    mix-blend-mode: multiply;
+    transform: translate(55px,3px);
+}
+
+/* Quest */
+.nav-button[data-page="quest"] .nav-icon {
+    background-image: url("../assets/icon quest loby.jpg");
+}
+
+/* Kebiasaan */
+.nav-button[data-page="habits"] .nav-icon {
+    background-image: url("../assets/icon kebiasaan loby.jpg");
+}
+
+/* Keuangan */
+.nav-button[data-page="finance"] .nav-icon {
+    background-image: url("../assets/icon keuangan loby.jpg");
+}
+
+/* Toko */
+.nav-button[data-page="shop"] .nav-icon {
+    background-image: url("../assets/icon shope loby.jpg");
+}
+
+/* Karakter */
+.nav-button[data-page="character"] .nav-icon {
+    background-image: url("../assets/icon caracter loby.jpg");
+}
+
+/* Trofi */
+.nav-button[data-page="trophy"] .nav-icon {
+    background-image: url("../assets/icon tropi loby.jpg");
+}
+
+
+/* =====================================
+   BACKGROUND QUEST AKTIF / NONAKTIF
+===================================== */
+
+/* Default: belum ada Quest aktif */
+.mini-quest {
+    background-image: url("../assets/icon quest non aktif.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+/* Ketika Quest sedang berjalan */
+.mini-quest.is-active {
+    background-image: url("../assets/icon quest aktif.jpg");
+}
+
+
+/* Ukuran ikon untuk layar kecil */
+@media (max-width: 1023px) {
+    .nav-icon {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+}
+/* Mini Quest seperti taskbar desktop */
+@media (min-width: 1024px) {
+  .mini-quest {
+    position: fixed;
+    right: 24px;
+    bottom: 0;
+    z-index: 100;
+
+    transform: translateY(calc(100% - 12px));
+    opacity: 0.45;
+
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  /* Muncul ketika kursor mendekat */
+  .mini-quest:hover {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Quest hari ini tersedia */
+  .mini-quest.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Quest sedang berjalan */
+  .mini-quest.is-active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Layar sentuh tetap menampilkan Mini Quest normal */
+@media (max-width: 1023px) {
+  .mini-quest {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    opacity: 1;
+  }
+}
+/* =====================================
+   BURGER MENU — MENU PENGATURAN
+===================================== */
+
+.top-menu-icon {
+    cursor: pointer;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+}
+
+.top-menu-icon:hover {
+    transform: scale(1.08);
+}
+
+.burger-menu-panel {
+    position: absolute;
+    top: 75px;
+    left: 18px;
+    z-index: 300;
+
+    width: 230px;
+    padding: 12px;
+
+    background: rgba(75, 49, 35, 0.97);
+    border: 2px solid #c69a60;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    color: #fff0c4;
+
+    animation: burgerMenuAppear 0.2s ease;
+}
+
+.burger-menu-panel[hidden] {
+    display: none;
+}
+
+.burger-menu-title {
+    padding: 5px 8px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255, 240, 196, 0.3);
+}
+
+.burger-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 12px 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.burger-menu-item small {
+    margin-left: auto;
+    font-size: 9px;
+    opacity: 0.6;
+}
+
+@keyframes burgerMenuAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* KARAKTER PLAYER */
+.player-character {
+    position: absolute;
+    z-index: 2;
+
+    width: 7%;
+    aspect-ratio: 399 / 672;
+
+    left: 43%; /*kecil ke kiri  */
+    top: 66%; /*kecil ke atas  */
+
+    transform: translate(-50%, -100%);
+
+    pointer-events: none;
+    overflow: hidden;
+}
+
+
+.player-character-sprite {
+    width: 100%;
+    height: 100%;
+
+    background-image: url("../assets/karakter/karakteridle.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 400% 100%;
+
+    image-rendering: pixelated;
+
+    animation: player-idle 2.4s steps(1, end) infinite;
+}
+
+@keyframes player-idle {
+    0%, 82% {
+        background-position: 0% 0%;
+    }
+
+    86% {
+        background-position: 33.333% 0%;
+    }
+
+    90% {
+        background-position: 66.667% 0%;
+    }
+
+    94% {
+        background-position: 100% 0%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* =================================
+   MENU KARAKTER
+================================= */
+
+.character-modal[hidden] {
+    display: none !important;
+}
+
+.character-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    background: rgba(25, 17, 12, 0.72);
+}
+
+.character-panel {
+    width: min(520px, 100%);
+    padding: 22px;
+
+    background: var(--cream);
+    border: 5px solid var(--wood-dark);
+    border-radius: 12px;
+    box-shadow: 0 8px 0 rgba(0,0,0,.25);
+}
+
+.character-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.character-panel-header h2 {
+    margin: 0;
+    color: var(--wood-dark);
+    font-size: 21px;
+}
+
+#close-character-menu {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--wood-dark);
+    border-radius: 6px;
+    background: var(--paper);
+    color: var(--wood-dark);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.character-subtitle {
+    margin: 8px 0 18px;
+    color: var(--wood);
+    font-size: 13px;
+}
+
+.character-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.character-option {
+    padding: 12px 8px;
+    min-width: 0;
+
+    background: var(--paper);
+    border: 3px solid var(--wood-light);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.character-option.selected {
+    border-color: #39934c;
+    background: #e5f2d9;
+}
+
+.character-option-sprite {
+    display: block;
+    width: 60px;
+    height: 100px;
+    margin: 0 auto 8px;
+
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 400% 100%;
+
+    image-rendering: pixelated;
+}
+
+.character-option-name {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.character-option-status {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+}
+
+.character-panel-footer {
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 2px solid var(--wood-light);
+    color: var(--wood-dark);
+    font-size: 12px;
+}
+
+@media (max-width: 480px) {
+    .character-panel {
+        padding: 15px;
+    }
+
+    .character-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+

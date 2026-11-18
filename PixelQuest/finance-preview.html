@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Quest - Finance</title>
+
+  <link rel="stylesheet" href="css/finance-preview.css">
+</head>
+
+<body>
+
+  <!-- HEADER STATUS PEMAIN -->
+  <header class="finance-topbar">
+
+    <div class="finance-coins">
+      <span>🪙</span>
+      <span>COINS: <strong id="player-coins">1250</strong></span>
+    </div>
+
+    <div class="finance-level">
+      <span>⭐</span>
+      <span>LEVEL: <strong id="player-level">15</strong></span>
+    </div>
+
+  </header>
+
+
+  <!-- HALAMAN FINANCE -->
+  <main id="finance-page">
+
+    <!-- TOMBOL TUTUP -->
+    <button
+      type="button"
+      id="close-finance-button"
+      class="close-finance-button"
+      aria-label="Tutup Buku Finance">
+      ✕
+    </button>
+
+
+    <!-- NAVIGASI SAMPING -->
+    <nav class="finance-sidebar">
+
+      <button
+        type="button"
+        class="finance-tab active"
+        data-tab="month">
+        BULAN INI
+      </button>
+
+      <button
+        type="button"
+        class="finance-tab"
+        data-tab="history">
+        RIWAYAT
+      </button>
+
+      <button
+        type="button"
+        class="finance-tab"
+        data-tab="target">
+        TARGET
+      </button>
+
+      <button
+        type="button"
+        class="finance-tab"
+        data-tab="archive">
+        ARSIP
+      </button>
+
+    </nav>
+
+
+    <!-- BUKU FINANCE -->
+    <section class="finance-book">
+
+      <!-- HALAMAN KIRI: BUKU KAS -->
+      <section class="finance-left-page">
+
+        <header class="finance-page-header">
+
+          <h1>BUKU KAS</h1>
+
+          <div class="finance-month-selector">
+
+            <button
+              type="button"
+              id="previous-month-button"
+              aria-label="Bulan sebelumnya">
+              ◀
+            </button>
+
+            <h2 id="finance-month-title">
+              NOVEMBER 2026
+            </h2>
+
+            <button
+              type="button"
+              id="next-month-button"
+              aria-label="Bulan berikutnya">
+              ▶
+            </button>
+
+          </div>
+
+        </header>
+
+
+        <!-- DAFTAR TRANSAKSI -->
+        <div class="finance-ledger">
+
+          <table class="finance-table">
+
+        <thead>
+            <tr>
+                <th>TANGGAL</th>
+                <th>IKON</th>
+                <th>KETERANGAN</th>
+                <th>JUMLAH</th>
+                <th>AKSI</th>
+            </tr>
+        </thead>
+
+            <tbody id="finance-transaction-list">
+
+              <!-- Transaksi akan ditampilkan melalui JavaScript -->
+
+              <tr class="empty-transaction">
+                <td colspan="5">
+                  Belum ada transaksi.
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- BAGIAN BAWAH BUKU KAS -->
+        <footer class="finance-ledger-footer">
+
+          <button
+            type="button"
+            id="add-transaction-button">
+            + CATAT
+          </button>
+
+          <div class="finance-pagination">
+
+            <button
+              type="button"
+              id="previous-transaction-page"
+              aria-label="Halaman sebelumnya">
+              ◀
+            </button>
+
+            <span id="transaction-page-indicator">
+              1/1
+            </span>
+
+            <button
+              type="button"
+              id="next-transaction-page"
+              aria-label="Halaman berikutnya">
+              ▶
+            </button>
+
+          </div>
+
+        </footer>
+
+      </section>
+
+
+      <!-- HALAMAN KANAN: RINGKASAN -->
+      <section class="finance-right-page">
+
+        <header class="finance-page-header">
+
+          <h1>RINGKASAN</h1>
+
+        </header>
+
+
+        <!-- KARTU SALDO -->
+        <div class="finance-summary-cards">
+
+          <article class="summary-card balance-card">
+            <h3>SALDO</h3>
+            <p id="finance-balance">Rp 0</p>
+          </article>
+
+          <article class="summary-card income-card">
+            <h3>🟢 MASUK</h3>
+            <p id="finance-income">Rp 0</p>
+          </article>
+
+          <article class="summary-card expense-card">
+            <h3>🔴 KELUAR</h3>
+            <p id="finance-expense">Rp 0</p>
+          </article>
+
+        </div>
+
+
+        <!-- GRAFIK KEUANGAN -->
+        <section class="finance-chart-section">
+
+          <div class="finance-chart-filter">
+
+            <button
+              type="button"
+              class="chart-filter active"
+              data-period="week">
+              MINGGU INI
+            </button>
+
+            <button
+              type="button"
+              class="chart-filter"
+              data-period="month">
+              BULAN INI
+            </button>
+
+          </div>
+
+          <div class="finance-chart-container">
+
+            <canvas id="finance-expense-chart">
+            </canvas>
+
+          </div>
+
+          <div
+            id="finance-chart-legend"
+            class="finance-chart-legend">
+          </div>
+
+        </section>
+
+
+        <!-- TARGET TABUNGAN -->
+        <section class="finance-saving-target">
+            <button
+                type="button"
+                id="manage-saving-target-button">
+                ⚙ ATUR TARGET
+            </button>
+
+          <div class="target-header">
+            <h3 id="finance-target-name">
+              BELI LAPTOP
+            </h3>
+
+            <span id="finance-target-percentage">
+              0%
+            </span>
+          </div>
+
+          <div class="target-progress">
+
+            <div
+              id="finance-target-progress-bar"
+              class="target-progress-bar">
+            </div>
+
+          </div>
+
+          <div class="target-footer">
+
+            <span id="finance-target-collected">
+              Rp 0
+            </span>
+
+            <span id="finance-target-deadline">
+              BELUM ADA TARGET
+            </span>
+
+          </div>
+
+        </section>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <!-- FORM TAMBAH TRANSAKSI -->
+  <section
+    id="finance-transaction-modal"
+    class="finance-modal"
+    hidden>
+
+    <div class="finance-modal-content">
+
+      <button
+        type="button"
+        id="close-transaction-modal"
+        class="modal-close-button">
+        ✕
+      </button>
+
+      <h2>CATAT TRANSAKSI</h2>
+
+      <form id="finance-transaction-form">
+
+        <label for="transaction-type">
+          Jenis Transaksi
+        </label>
+
+        <select id="transaction-type" required>
+          <option value="income">Pemasukan</option>
+          <option value="expense">Pengeluaran</option>
+        </select>
+
+
+        <label for="transaction-name">
+          Keterangan
+        </label>
+
+        <input
+          type="text"
+          id="transaction-name"
+          placeholder="Contoh: Uang saku"
+          required>
+
+
+        <label for="transaction-category">
+          Kategori
+        </label>
+
+        <select id="transaction-category" required>
+          <option value="">Pilih kategori</option>
+          <option value="food">Makanan</option>
+          <option value="transport">Transportasi</option>
+          <option value="education">Pendidikan</option>
+          <option value="shopping">Belanja</option>
+          <option value="salary">Gaji / Pendapatan</option>
+          <option value="allowance">Uang saku</option>
+          <option value="other">Lainnya</option>
+        </select>
+
+
+        <label for="transaction-amount">
+          Jumlah (Rp)
+        </label>
+
+        <input
+          type="number"
+          id="transaction-amount"
+          placeholder="Masukkan jumlah"
+          min="1"
+          step="1"
+          required>
+
+
+        <label for="transaction-date">
+          Tanggal
+        </label>
+
+        <input
+          type="date"
+          id="transaction-date"
+          required>
+
+
+        <div class="finance-modal-actions">
+
+          <button
+            type="button"
+            id="cancel-transaction-button">
+            BATAL
+          </button>
+
+          <button
+            type="submit"
+            id="save-transaction-button">
+            SIMPAN
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+  
+<section id="saving-target-modal" class="finance-modal" hidden>
+  <div class="finance-modal-content">
+
+    <button
+      type="button"
+      id="close-saving-target-modal"
+      class="modal-close-button">
+      ✕
+    </button>
+
+    <h2>ATUR TARGET TABUNGAN</h2>
+
+    <form id="saving-target-form">
+
+      <label for="saving-target-name">Nama Target</label>
+      <input
+        type="text"
+        id="saving-target-name"
+        placeholder="Contoh: Beli Laptop"
+        required>
+
+      <label for="saving-target-amount">Jumlah Target (Rp)</label>
+      <input
+        type="number"
+        id="saving-target-amount"
+        min="1"
+        step="1"
+        placeholder="Contoh: 10000000"
+        required>
+
+      <label for="saving-target-collected-input">Sudah Terkumpul (Rp)</label>
+      <input
+        type="number"
+        id="saving-target-collected-input"
+        min="0"
+        step="1"
+        value="0"
+        required>
+
+      <label for="saving-target-deadline-input">Batas Waktu</label>
+      <input
+        type="date"
+        id="saving-target-deadline-input"
+        required>
+
+      <div class="finance-modal-actions">
+        <button type="button" id="cancel-saving-target-button">
+          BATAL
+        </button>
+
+        <button type="submit">
+          SIMPAN TARGET
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+
+  <!-- JAVASCRIPT -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/finance-preview.js" defer></script>
+
+</body>
+</html>

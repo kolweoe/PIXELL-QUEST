@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pixel Quest - Toko</title>
+
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+
+<body>
+
+  
+<main class="shop-scene">
+
+    <!-- SALDO COINS -->
+    <div class="shop-coin-box">
+        <span>🪙</span>
+        <span id="shop-coins">0</span>
+    </div>
+
+    <!-- JUDUL TOKO -->
+    <h1 class="shop-title">TOKO</h1>
+
+    <!-- TOMBOL KEMBALI -->
+    <a href="index.html" class="shop-close" aria-label="Kembali ke Lobby">
+        ×
+    </a>
+
+<!-- AREA PREVIEW KARAKTER -->
+<section class="shop-preview">
+
+    <!-- Gambar karakter -->
+    <div class="shop-character-preview"></div>
+
+    <!-- Panel detail karakter -->
+    <div class="shop-detail-card">
+
+        <h2 id="shop-item-name">Petualang Perempuan</h2>
+
+        <p id="shop-item-description">
+            Seorang petualang pemberani yang siap menjelajahi dunia.
+        </p>
+
+        <div class="shop-detail-footer">
+            <span class="shop-item-price" id="shop-item-price">
+                🪙 500
+            </span>
+
+            <button type="button" id="shop-buy-button">
+                BELI
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- PANEL KATALOG -->
+    <section class="shop-catalog">
+
+        <div class="shop-tabs">
+            <button class="shop-tab active" type="button">
+                Karakter
+            </button>
+
+            <button class="shop-tab" type="button" disabled>
+                Pemandangan
+            </button>
+
+            <button class="shop-tab" type="button" disabled>
+                Hiasan
+            </button>
+        </div>
+
+<div class="shop-carousel">
+
+    <button id="shop-prev" class="shop-arrow" type="button">
+        ❮
+    </button>
+
+    <div class="shop-items" id="shop-items">
+        <!-- Kartu karakter dibuat melalui JavaScript -->
+    </div>
+
+    <button id="shop-next" class="shop-arrow" type="button">
+        ❯
+    </button>
+
+</div>
+
+
+    </section>
+
+    <div id="shop-message"></div>
+
+</main>
+<script src="js/character-catalog.js"></script>
+<script src="js/shop.js"></script>
+
+</body>
+</html>

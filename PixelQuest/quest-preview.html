@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Quest Journal - Pixel Quest</title>
+
+  <link rel="stylesheet" href="css/quest-preview.css">
+</head>
+
+<body>
+
+  <main class="quest-screen">
+
+    <!-- Status pemain -->
+    <header class="quest-header">
+     <div class="player-coins">
+        Q COINS: <span id="coins-display">1250</span>
+        </div>
+
+      <div class="player-progression">
+  <div class="player-level">
+    ⭐ LEVEL: <span id="level-display">1</span>
+  </div>
+
+  <div class="player-exp-label">
+    <span id="exp-display">0 / 500 EXP</span>
+  </div>
+
+  <div class="exp-progress-track">
+    <div id="exp-progress-fill"></div>
+  </div>
+</div>
+    </header>
+
+    <!-- Area buku Quest -->
+    <section class="quest-layout">
+
+      <div class="quest-book">
+
+        <!-- Tombol tutup -->
+        <button class="close-button" type="button">
+          ✕
+        </button>
+
+        <!-- Halaman kiri -->
+        <section class="book-page quest-list-page">
+
+          <h1>QUEST HARI INI</h1>
+
+       <div class="quest-list" id="quest-list">
+        </div>
+
+         <div class="quest-pagination">
+            <button type="button" id="quest-prev-page">◀</button>
+              <span id="quest-page-indicator">1 / 1</span>
+            <button type="button" id="quest-next-page">▶</button>
+        </div>
+
+        </section>
+
+        <!-- Halaman kanan -->
+        <section class="book-page quest-detail-page">
+
+          <h2 id="detail-title">BELAJAR 1 JAM</h2>
+
+          <p id="detail-description">
+            Belajar satu jam untuk quest hari ini.
+          </p>
+          <form id="quest-form" class="quest-form quest-story-form" hidden>
+            <button
+              type="button"
+              id="back-to-quest-form-button"
+              class="back-to-quest-form-button">
+              ← KEMBALI
+            </button>
+
+  <h3>📜 Pendaftaran Misi Petualang</h3>
+
+  <p>
+    Salam, Petualang! Aku ingin mendaftarkan misi baru
+    dengan nama
+  <input type="text" id="new-quest-name"
+  class="story-input story-title-input"
+  placeholder="Nama misi..."
+  maxlength="25"
+  required>
+  </p>
+  <p>
+  Aku ingin mendaftarkan misi ini sebagai Quest:
+<select id="new-quest-category" class="story-input" required>
+  <option value="">Pilih kategori</option>
+  <option value="belajar">Belajar</option>
+  <option value="pekerjaan">Pekerjaan</option>
+  <option value="ibadah">Ibadah</option>
+  <option value="kesehatan">Kesehatan</option>
+  <option value="olahraga">Olahraga</option>
+  <option value="kreativitas">Kreativitas</option>
+  <option value="rumah_tangga">Rumah Tangga</option>
+  <option value="keuangan">Keuangan</option>
+  <option value="hiburan">Hiburan</option>
+  <option value="bermain_game">Bermain Game</option>
+  <option value="sosial">Sosial</option>
+  <option value="lainnya">Lainnya</option>
+</select>
+</p>
+  <p>Inilah kisah di balik petualanganku:</p>
+
+<textarea id="new-quest-description"
+  class="story-input story-narrative"
+  placeholder="Tuliskan cerita dan tujuan misimu..."
+  rows="3"
+  maxlength="100"
+  required></textarea>
+
+  <p>
+    Aku berencana menjalankan misi ini setiap:
+  </p>
+
+  <div class="quest-days">
+    <label><input type="checkbox" name="quest-days" value="1"> Senin</label>
+    <label><input type="checkbox" name="quest-days" value="2"> Selasa</label>
+    <label><input type="checkbox" name="quest-days" value="3"> Rabu</label>
+    <label><input type="checkbox" name="quest-days" value="4"> Kamis</label>
+    <label><input type="checkbox" name="quest-days" value="5"> Jumat</label>
+    <label><input type="checkbox" name="quest-days" value="6"> Sabtu</label>
+    <label><input type="checkbox" name="quest-days" value="0"> Minggu</label>
+  </div>
+  <!-- TANGGAL MULAI QUEST -->
+<div class="quest-date-section">
+
+  <p>
+    Petualanganku akan dimulai pada tanggal:
+  </p>
+
+  <input
+    type="date"
+    id="new-quest-start-date"
+    class="story-input story-date-input"
+    required
+  >
+
+  <small id="quest-date-preview">
+    Tanggal berakhir akan dihitung otomatis.
+  </small>
+
+</div>
+
+  <p>
+    Petualanganku akan dimulai pukul
+    <input type="time" id="new-quest-start-time"
+      class="story-input story-time-input"
+      value="19:00" required>,
+    dengan durasi
+    <input type="number" id="new-quest-duration"
+      class="story-input story-number-input"
+      min="1" placeholder="30" required>
+    menit setiap sesi.
+  </p>
+
+  <p>
+    Misi ini akan berlangsung selama
+    <select id="new-quest-period" class="story-input" required>
+      <option value="">Pilih periode</option>
+      <option value="weekly">1 Minggu</option>
+      <option value="monthly">1 Bulan</option>
+      <option value="yearly">1 Tahun</option>
+    </select>
+    dengan target
+    <input type="number" id="new-quest-target"
+      class="story-input story-number-input"
+      min="1" placeholder="20" required>
+    sesi.
+  </p>
+
+  <p>
+    Tingkat kesulitan petualanganku adalah
+    <select id="new-quest-difficulty" class="story-input" required>
+      <option value="">Pilih</option>
+      <option value="easy">EASY</option>
+      <option value="normal">NORMAL</option>
+      <option value="hard">HARD</option>
+      <option value="epic">EPIC</option>
+    </select>.
+  </p>
+
+  <p>Dengan ini aku siap menerima tantangan!</p>
+
+  <button type="submit" id="save-quest-button">
+    ⚔ DAFTARKAN MISI
+  </button>
+
+</form>
+
+          
+          <div class="quest-streak">
+            🔥 5 HARI
+          </div>
+
+          <div class="quest-timer" id="quest-timer">
+            00:00:00
+          </div>
+
+          <div class="quest-reward">
+            🪙 +50 COINS
+          </div>
+
+          <div class="quest-actions">
+            <button id="start-button" type="button">
+              MULAI
+            </button>
+            <button id="pause-button" disabled>JEDA</button>
+            <button id="cancel-timer-button">BATAL</button>
+            <button id="summary-button" type="button" disabled>
+              RANGKUMAN
+            </button>
+            <button id="delete-quest-button">HAPUS QUEST</button>
+          </div>
+          <button id="open-quest-book-button">
+          📖 BUKU CATATAN
+          </button>
+        </section>
+        <!-- HALAMAN BUKU QUEST -->
+      </div>
+      <!-- Kategori Quest -->
+
+
+<nav class="quest-categories">
+  <div class="quest-category-navigation">
+
+    <button
+      class="category-button active"
+      data-category="all"
+      type="button">
+      SEMUA QUEST
+    </button>
+
+    <button
+      class="category-button"
+      data-category="today"
+      type="button">
+      HARI INI
+    </button>
+
+    <button
+      class="category-button"
+      data-category="new"
+      type="button">
+      + BARU
+    </button>
+
+  </div>
+</nav>
+
+    </section>
+
+<!-- HALAMAN BUKU PETUALANGAN -->
+<section id="quest-book-page" hidden>
+
+  <button id="back-to-quest-button" type="button">
+    ← KEMBALI
+  </button>
+
+  <div class="quest-book-content">
+
+    <!-- JUDUL BUKU -->
+   <header class="quest-book-header">
+  <h2 id="quest-book-title">BUKU PETUALANGAN</h2>
+  <p id="quest-book-subtitle">Catatan perjalanan Quest</p>
+</header>
+    <!-- BUKU TERBUKA -->
+    <div id="quest-book-entries">
+
+      <!-- HALAMAN KIRI: REFLEKSI -->
+      <section class="quest-journal-writing">
+
+        <h3>✍️ Cerita Petualanganmu</h3>
+
+        <p class="journal-intro">
+          Tuliskan sedikit perjalananmu hari ini...
+        </p>
+
+        <form id="quest-reflection-form">
+
+          <label for="reflection-learned">
+            Apa yang kamu pelajari hari ini?
+          </label>
+          <textarea
+            id="reflection-learned"
+            placeholder="Hari ini aku belajar tentang..."
+          ></textarea>
+
+          <label for="reflection-challenge">
+            Apa yang terasa sulit?
+          </label>
+          <textarea
+            id="reflection-challenge"
+            placeholder="Bagian yang paling menantang adalah..."
+          ></textarea>
+
+          <label for="reflection-improve">
+            Apa yang ingin kamu coba besok?
+          </label>
+          <textarea
+            id="reflection-improve"
+            placeholder="Besok aku ingin mencoba..."
+          ></textarea>
+
+          <label for="reflection-notes">
+            Catatan kecilku
+          </label>
+          <textarea
+            id="reflection-notes"
+            placeholder="Hal lain yang ingin aku ingat..."
+          ></textarea>
+
+          <button
+            id="save-reflection-button"
+            type="button"
+          >
+            SIMPAN HALAMAN 📖
+          </button>
+
+        </form>
+      </section>
+
+      <!-- HALAMAN KANAN: RIWAYAT -->
+      <section id="quest-book-history">
+
+        <h3>📚 Jejak Petualangan</h3>
+
+        <p class="journal-intro">
+          Semua perjalanan petualanganmu tersimpan di sini.
+        </p>
+
+        <div id="quest-book-history-list">
+          <p>Belum ada catatan petualangan.</p>
+        </div>
+
+        <!-- TEMPAT NAVIGASI HALAMAN RIWAYAT -->
+        <nav
+          id="quest-book-history-pagination"
+          class="quest-book-history-pagination"
+          aria-label="Navigasi halaman riwayat"
+          hidden
+        >
+          <button
+            id="history-prev-button"
+            type="button"
+            aria-label="Halaman sebelumnya"
+          >
+            ◀
+          </button>
+
+          <span id="history-page-indicator">1 / 1</span>
+
+          <button
+            id="history-next-button"
+            type="button"
+            aria-label="Halaman berikutnya"
+          >
+            ▶
+          </button>
+        </nav>
+
+      </section>
+
+    </div>
+  </div>
+</section>
+
+
+  </main>
+
+<script src="js/coin-system.js"></script>
+<script src="js/quest-preview.js"></script>
+</body>
+</html>

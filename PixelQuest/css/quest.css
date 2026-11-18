@@ -1,0 +1,307 @@
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #ead8b5;
+      color: #6c3030;
+      font-family: monospace;
+    }
+
+    .game {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 16px;
+      background: #f9edcf;
+      border: 4px solid #0a0401;
+      box-shadow: 4px 4px 0 #39291f;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .back {
+      padding: 10px 14px;
+      color: inherit;
+      text-decoration: none;
+      background: #dfbd91;
+      border: 3px solid #63402b;
+      font-weight: bold;
+    }
+
+    .panel {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f9edcf;
+      border: 4px solid #63402b;
+      box-shadow: 4px 4px 0 #39291f;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+    }
+    .quest-item {
+      margin-top: 14px;
+      padding: 14px;
+      background: #ead8b5;
+      border: 2px solid #8c6241;
+    }
+    .quest-item h3 {
+      margin: 0 0 8px;
+    }
+    .quest-item p {
+      line-height: 1.6;
+    }
+    .reward {
+      font-weight: bold;
+      color: #79551a;
+    }
+    @media (max-width: 480px) {
+      .game {
+        padding: 12px;
+      }
+      h1 {
+        font-size: 19px;
+      }
+    }
+/* ===== HABIT QUEST FORM ===== */
+#habit-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+#habit-form label,
+#habit-form legend {
+  color: #564211;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+#habit-form input:not([type="checkbox"]),
+#habit-form select,
+#habit-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #6d2c09;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #4e2606;
+  font: inherit;
+}
+#habit-form input:focus,
+#habit-form select:focus,
+#habit-form textarea:focus {
+  outline: 2px solid #e6c36a;
+  outline-offset: 2px;
+}
+#habit-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+#habit-form fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  padding: 14px;
+  border: 2px solid #536078;
+  border-radius: 6px;
+}
+#habit-form fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+}
+#habit-form input[type="checkbox"] {
+  accent-color: #e6c36a;
+  width: 17px;
+  height: 17px;
+}
+#habit-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+#habit-form button {
+  margin-top: 10px;
+  padding: 14px;
+  border: 2px solid #f0d58a;
+  border-radius: 6px;
+  background: #9a7134;
+  color: #fff8e5;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+#habit-form button:hover {
+  background: #b48743;
+}
+@media (max-width: 480px) {
+  #habit-form .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== ACTIVE QUEST TIMER ===== */
+#active-quest {
+  margin-top: 24px;
+  padding: 20px;
+  border: 2px solid #4c3600;
+  border-radius: 8px;
+  background: #fcfbf9;
+}
+
+#active-quest[hidden] {
+  display: none;
+}
+
+#quest-timer {
+  margin: 20px 0;
+  color: #957d40;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  font-family: monospace;
+}
+
+#finish-quest {
+  padding: 12px 18px;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  background: #f4b75a;
+  color: #000000;
+  font: inherit;
+  cursor: pointer;
+}
+
+#finish-quest:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* ===== QUEST EVALUATION ===== */
+#quest-evaluation {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#quest-evaluation[hidden] {
+  display: none;
+}
+
+#evaluation-text {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  border: 2px solid #536078;
+  border-radius: 6px;
+  background: #182235;
+  color: #f5f1e8;
+  font: inherit;
+  resize: vertical;
+}
+
+#character-count,
+#evaluation-status {
+  font-size: 0.9rem;
+}
+
+#submit-evaluation {
+  padding: 12px;
+  border: 2px solid #f0d58a;
+  border-radius: 6px;
+  background: #9a7134;
+  color: #fff8e5;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#submit-evaluation:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.habit-summary {
+  font-size: 13px;
+  opacity: 0.8;
+  margin: 6px 0;
+}
+
+.quest-completed {
+  display: inline-block;
+  margin: 10px 0 0;
+  padding: 6px 10px;
+  background: #e2f1d8;
+  border: 2px solid #72966a;
+  color: #31582d;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.habit-details {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: #fff2d5;
+  border-left: 4px solid #b77a49;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.habit-details[hidden] {
+  display: none;
+}
+
+.detail-button {
+  margin-right: 6px;
+}
+
+.habit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.habit-title {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.detail-button {
+  flex-shrink: 0;
+}
+
+.habit-details {
+  padding: 0 14px 14px;
+  border-top: 1px solid #d8c29e;
+  line-height: 1.6;
+}
+
+.habit-details[hidden] {
+  display: none;
+}
+
+.habit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}

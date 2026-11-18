@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Quest — Lobby</title>
+  <link rel="stylesheet" href="css/lobby.css">
+
+</head>
+<body>
+  <main class="lobby">
+<header class="status-bar" aria-label="Status pemain">
+
+  <!-- BURGER MENU -->
+  <button
+  class="top-menu-icon"
+  id="menuToggle"
+  type="button"
+  aria-label="Buka menu pengaturan"
+  aria-expanded="false"
+  aria-controls="burgerMenu"
+></button>
+
+  <!-- LEVEL DAN EXP -->
+<div class="level-display" id="level-display">
+  <span class="level-number" id="level-number">Lv. 1</span>
+
+  <div class="exp-track">
+    <div class="exp-fill" id="exp-fill"></div>
+    <span class="exp-text" id="exp-text">0 / 500 EXP</span>
+  </div>
+</div>
+
+  <!-- COINS -->
+  <div class="coin-display">
+    <span id="coins">1250</span>
+  </div>
+
+<!-- AUDIO -->
+<button id="soundButton" class="sound-icon" type="button" aria-label="Matikan suara"></button>
+
+</header>
+<!-- BURGER MENU BARU -->
+<div class="burger-menu-panel" id="burgerMenu" hidden>
+    <div class="burger-menu-title">MENU</div>
+
+    <div class="burger-menu-item">
+        <span>⚙️</span>
+        <span>PENGATURAN</span>
+        <small>Segera hadir</small>
+    </div>
+</div>
+  <div class="dashboard-layout">
+    <aside class="daily-board">
+  <h2>HARI INI</h2>
+  <p>Selamat datang</p>
+  <div class="daily-board-content">
+    <span>Quest aktif</span>
+    <span>mulai harimu !</span>
+  </div>
+</aside>
+    
+<div class="room-column">
+
+    <section class="room-frame" aria-label="Kamar Pixel Quest">
+        <div class="room-canvas">
+            <img
+                class="room-art"
+                src="assets/kamar-removebg-preview.png"
+                alt="Kamar Pixel Quest"
+                draggable="false"
+            />
+              <div id="player-character" class="player-character">
+                <div class="player-character-sprite"></div>
+              </div>
+            <div id="furniture-layer" class="furniture-layer"></div>
+        </div>
+    </section>
+
+    <div class="room-upgrade">
+        <div class="upgrade-icon" aria-hidden="true"></div>
+
+        <button id="room-upgrade-button" class="upgrade-info" type="button">
+            <strong>UPGRADE KAMAR</strong>
+
+            <small id="upgrade-description">
+                Memuat upgrade...
+            </small>
+
+           <div class="upgrade-progress">
+              <span id="room-upgrade-progress"></span>
+              <small id="room-upgrade-remaining" class="upgrade-progress-label"></small>
+            </div>
+        </button>
+    </div>
+
+</div>
+
+<aside class="dashboard-sidebar" aria-label="Informasi aktivitas">
+
+    <section class="mini-quest" id="mini-quest" aria-label="Ringkasan quest">
+        <div class="mini-quest-info">
+            <span class="mini-quest-label">⚔ QUEST AKTIF</span>
+            <h2 id="mini-quest-name">Belum ada quest aktif</h2>
+            <p id="mini-quest-status">Tugasmu akan muncul di sini.</p>
+        </div>
+
+        <div class="mini-quest-timer" id="mini-quest-timer">--:--</div>
+
+        <a class="mini-quest-link" href="quest-preview.html">BUKA QUEST →</a>
+    </section>
+
+</aside>
+</div>
+
+
+ <nav class="navigation" aria-label="Menu utama">
+  <button class="nav-button" type="button" data-page="quest">
+    <span class="nav-icon">📜</span>
+    <span class="nav-label">QUEST</span>
+  </button>
+
+  <button class="nav-button" type="button" data-page="habits">
+    <span class="nav-icon">📋</span>
+    <span class="nav-label">KEBIASAAN</span>
+  </button>
+
+  <button class="nav-button" type="button" data-page="finance">
+    <span class="nav-icon">💰</span>
+    <span class="nav-label">KEUANGAN</span>
+  </button>
+
+  <button class="nav-button" type="button" data-page="shop">
+    <span class="nav-icon">🛍️</span>
+    <span class="nav-label">TOKO</span>
+  </button>
+
+  <button class="nav-button" type="button" data-page="character">
+    <span class="nav-icon">👤</span>
+    <span class="nav-label">KARAKTER</span>
+  </button>
+
+  <button class="nav-button" type="button" data-page="trophy">
+    <span class="nav-icon">🏆</span>
+    <span class="nav-label">TROFI</span>
+  </button>
+</nav>
+
+<!-- MENU KARAKTER -->
+<section id="character-menu" class="character-modal" hidden>
+    <div class="character-panel">
+
+        <div class="character-panel-header">
+            <h2>PILIH KARAKTER</h2>
+            <button id="close-character-menu" type="button"
+                aria-label="Tutup menu">×</button>
+        </div>
+
+        <p class="character-subtitle">
+            Pilih karakter petualanganmu
+        </p>
+
+        <div id="character-list" class="character-list"></div>
+
+        <div class="character-panel-footer">
+            <span id="selected-character-name">Karakter aktif</span>
+        </div>
+
+    </div>
+</section>
+
+  </main>
+<script src="js/character-catalog.js"></script>
+<script src="js/lobby.js"></script>
+</body>
+</html>

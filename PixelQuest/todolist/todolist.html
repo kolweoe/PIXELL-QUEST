@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Quest — To-Do List</title>
+  <link rel="stylesheet" href="todolist.css">
+</head>
+<body>
+
+  <main class="todo-page">
+
+    <header class="todo-header">
+      <a href="../index.html" class="back-button">← Kembali</a>
+      <div class="header-title">
+        <p class="eyebrow">YOUR DAILY ADVENTURE</p>
+        <h1>To-Do List</h1>
+        <p class="subtitle">Catat hal-hal kecil yang ingin kamu selesaikan.</p>
+      </div>
+    </header>
+
+    <section class="progress-panel">
+      <div>
+        <p class="panel-label">TASK PROGRESS</p>
+        <h2>Petualangan Hari Ini</h2>
+        <p class="progress-text" id="progressText">0 dari 0 tugas selesai</p>
+      </div>
+
+      <div class="progress-circle">
+        <span id="progressPercent">0%</span>
+      </div>
+    </section>
+
+
+    <section class="todo-content">
+
+      <div class="section-heading">
+        <h2>Daftar Tugas</h2>
+        <button class="add-button" type="button">+ Tambah Tugas</button>
+      </div>
+
+
+<div class="filter-bar">
+  <button class="filter-button active" data-filter="all" type="button">
+    Semua
+  </button>
+  <button class="filter-button" data-filter="pending" type="button">
+    Belum Selesai
+  </button>
+  <button class="filter-button" data-filter="completed" type="button">
+    Selesai
+  </button>
+</div>
+
+
+      <section class="task-group">
+        <h3>☀ Hari Ini</h3>
+
+        <div class="task-list" id="todayTasks">
+          <p class="empty-message">Belum ada tugas untuk hari ini.</p>
+        </div>
+      </section>
+          <section class="task-group">
+      <h3>⚠ Terlambat</h3>
+      <div class="task-list" id="overdueTasks">
+        <p class="empty-message">Tidak ada tugas yang terlambat.</p>
+      </div>
+    </section>
+
+      <section class="task-group">
+        <h3>🌙 Besok</h3>
+
+        <div class="task-list" id="tomorrowTasks">
+          <p class="empty-message">Belum ada tugas untuk besok.</p>
+        </div>
+      </section>
+
+      <section class="task-group">
+        <h3>📜 Mendatang</h3>
+
+        <div class="task-list" id="upcomingTasks">
+          <p class="empty-message">Belum ada tugas mendatang.</p>
+        </div>
+      </section>
+      <section class="task-group">
+        <h3>⌛ Terlewat</h3>
+          <div class="task-list" id="overdueTasks">
+            <p class="empty-message">Tidak ada tugas terlewat.</p>
+          </div>
+        </section>
+
+    </section>
+
+    <footer class="todo-footer">
+      <p>PIXEL QUEST · ONE TASK AT A TIME</p>
+    </footer>
+
+  </main>
+
+  <script src="todolist.js"></script>
+</body>
+</html>
